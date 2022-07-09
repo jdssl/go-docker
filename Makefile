@@ -8,5 +8,3 @@ dev:
 down:
 	docker compose down
 
-prod:
-
