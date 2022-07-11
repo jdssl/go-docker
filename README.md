@@ -1,6 +1,6 @@
 # go-docker
 
-<img title="colorize" alt="go-docker" src="/images/docker.gif" width="800">
+<img title="go-docker" alt="go-docker" src="/images/docker.gif" width="800">
 
 ## Init docker and air
 
