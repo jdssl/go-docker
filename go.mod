@@ -1,3 +1,3 @@
-module github.com/JonatanLima/go-docker
+module go-docker
 
-go 1.18
+go 1.21.1
