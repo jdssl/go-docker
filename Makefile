@@ -1,10 +1,10 @@
 init:
-	docker compose run --rm app go mod init github.com/JonatanLima/go-docker
-	docker compose run --rm app air init
+	podman-compose run --rm app go mod init github.com/jdssl/go-docker
+	podman-compose run --rm app air init
 
 dev:
-	docker compose up
+	podman-compose up
 
 down:
-	docker compose down
+	podman-compose down
 
