@@ -1,6 +1,7 @@
 package note
 
 import (
+	internalerrors "go-docker/internal/internal-errors"
 	"time"
 
 	"github.com/rs/xid"
@@ -11,14 +12,14 @@ type Topic struct {
 }
 
 type Note struct {
-	ID        string
-	Title     string
-	Finished  bool
-	Topics    []Topic
-	CreatedOn time.Time
+	ID        string    `validate:"required"`
+	Title     string    `validate:"min=5,max=180"`
+	Finished  bool      `validate:"boolean,isdefault=false"`
+	Topics    []Topic   `validate:"min=1,dive"`
+	CreatedOn time.Time `validate:"required"`
 }
 
-func NewNote(title string, finished bool, names []string) (*Note, error) {
+func NewNote(title string, names []string) (*Note, error) {
 	topics := make([]Topic, len(names))
 	for i, name := range names {
 		topics[i].Name = name
@@ -27,10 +28,15 @@ func NewNote(title string, finished bool, names []string) (*Note, error) {
 	note := &Note{
 		ID:        xid.New().String(),
 		Title:     title,
-		Finished:  finished,
+		Finished:  false,
 		Topics:    topics,
 		CreatedOn: time.Now(),
 	}
 
-	return note, nil
+	err := internalerrors.ValidateStruct(note)
+	if err == nil {
+		return note, nil
+	}
+
+	return nil, err
 }
