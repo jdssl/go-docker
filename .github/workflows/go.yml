@@ -3,7 +3,7 @@ name: Go
 on: [push]
 
 jobs:
-  build:
+  setup:
     name: Go build
     runs-on: ubuntu-latest
     strategy:
@@ -20,6 +20,9 @@ jobs:
       - name: Install dependencies
         run: go get .
 
+  tests:
+    needs: setup
+    steps:
       - name: Tests
         run: go test -json > TestResults-${{ matrix.go-version }}.json
 
