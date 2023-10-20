@@ -12,7 +12,7 @@ down:
 	podman-compose down
 
 unit-test:
-	go test -tags=unit ${PKG_LIST} -coverpkg=./... -coverprofile=.test/coverage.out
+	go test -tags=unit ${PKG_LIST} -coverpkg=./... -coverprofile=./cover/coverage.out
 
 coverage:
-	go tool cover -html=.test/coverage.out -o .test/test-coverage.html
+	go tool cover -html=./cover/coverage.out -o ./cover/test-coverage.html
