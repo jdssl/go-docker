@@ -15,45 +15,36 @@ var (
 )
 
 func Test_NewNote_CreateNote(t *testing.T) {
-	assert := assert.New(t)
 	now := time.Now().Add(-time.Minute)
 
 	note, _ := NewNote(title, topics)
 
-	assert.Equal(note.Title, title)
-	assert.False(note.Finished)
-	assert.Equal(len(note.Topics), len(topics))
-	assert.Greater(note.CreatedOn, now)
+	assert.Equal(t, note.Title, title)
+	assert.False(t, note.Finished)
+	assert.Equal(t, len(note.Topics), len(topics))
+	assert.Greater(t, note.CreatedOn, now)
 }
 
 func Test_NewNote_IDSNotNill(t *testing.T) {
-	assert := assert.New(t)
-
 	note, _ := NewNote(title, topics)
 
-	assert.NotNil(note.ID)
+	assert.NotNil(t, note.ID)
 }
 
 func Test_NewNote_MustValidateTitleMin(t *testing.T) {
-	assert := assert.New(t)
-
 	_, err := NewNote("", topics)
 
-	assert.Equal("title is required with min 5", err.Error())
+	assert.Equal(t, "title is required with min 5", err.Error())
 }
 
 func Test_NewNote_MustValidateTitleMax(t *testing.T) {
-	assert := assert.New(t)
-
 	_, err := NewNote(fake.Lorem().Text(181), topics)
 
-	assert.Equal("title is required with max 180", err.Error())
+	assert.Equal(t, "title is required with max 180", err.Error())
 }
 
 func Test_NewNote_MustValidateTopicsMin(t *testing.T) {
-	assert := assert.New(t)
-
 	_, err := NewNote(title, nil)
 
-	assert.Equal("topics is required with min 1", err.Error())
+	assert.Equal(t, "topics is required with min 1", err.Error())
 }
